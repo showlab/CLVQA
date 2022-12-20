@@ -1,0 +1,309 @@
+config_version: 1.0
+training:
+  trainer: mmf
+  seed: 42574508
+  experiment_name: run
+  max_updates: 120000
+  max_epochs: null
+  log_interval: 100
+  logger_level: info
+  log_format: simple
+  log_detailed_config: false
+  should_not_log: false
+  colored_logs: true
+  tensorboard: false
+  wandb:
+    enabled: false
+    entity: null
+    project: mmf
+    name: run
+    log_checkpoint: false
+  batch_size: 64
+  batch_size_per_device: null
+  update_frequency: 1
+  num_workers: 4
+  fast_read: false
+  dataset_size_proportional_sampling: true
+  pin_memory: false
+  persistent_workers: true
+  checkpoint_interval: 40000
+  evaluation_interval: 4000
+  clip_gradients: true
+  clip_norm_mode: all
+  early_stop:
+    enabled: false
+    patience: 4000
+    criteria: clvqa/textvqa_accuracy
+    minimize: false
+  lr_scheduler: true
+  lr_steps:
+  - 30000
+  - 60000
+  - 90000
+  lr_ratio: 0.1
+  use_warmup: true
+  warmup_factor: 0.2
+  warmup_iterations: 2000
+  device: cuda
+  local_rank: null
+  verbose_dump: false
+  find_unused_parameters: false
+  evaluate_metrics: false
+  detect_anomaly: false
+  fp16: false
+  callbacks: 
+  - type: kmeans_store
+    params: {}
+  exit_on_nan_losses: true
+  max_grad_l2_norm: 0.25
+  task_size_proportional_sampling: true
+  CL:
+    use_cl: false
+    use_icarl: false
+    use_callback: false
+    use_specific_optim: false
+    reg_type: ewc
+    reg_lambda: 1.0
+    reg_params_pth: null
+    cl_setting: functional
+    task_order: ""
+    cur_task: multitask
+    use_replay: false
+    replay_method: ""
+    replay_mask_img: false
+    replay_rate: 0.2
+    replay_dir: ""
+    restore_rate: 0.2
+    max_restore_per_stage: 1800
+    restore_dir: ""
+    restore_paths: ""
+trainer:
+  type: lightning
+  params:
+    gpus: 1
+    num_nodes: 1
+    precision: 32
+    deterministic: false
+    benchmark: false
+    max_steps: 22000
+    max_epochs: null
+    gradient_clip_val: 0.0
+    num_sanity_val_steps: 0
+    checkpoint_callback: true
+    accumulate_grad_batches: 1
+    val_check_interval: 1000
+    log_every_n_steps: 100
+    logger: false
+    limit_val_batches: 1.0
+    progress_bar_refresh_rate: 0
+    resume_from_checkpoint: null
+evaluation:
+  metrics:
+  - textvqa_accuracy
+  use_cpu: true
+  predict: false
+  predict_file_format: json
+  reporter:
+    type: file
+    params: {}
+model_config:
+  unicl:
+    use_cls: false
+    lr_scale_frcn: 0.1
+    lr_scale_text_bert: 0.1
+    lr_scale_mmt: 1.0
+    text_bert_init_from_bert_base: true
+    text_bert_resize_token_ocr: true
+    text_bert:
+      num_hidden_layers: 3
+    obj:
+      mmt_in_dim: 2048
+      dropout_prob: 0.1
+    ocr:
+      mmt_in_dim: 3002
+      dropout_prob: 0.1
+    mmt:
+      hidden_size: 768
+      num_hidden_layers: 4
+      max_position_embeddings: 800
+    classifier:
+      type: linear
+      ocr_max_num: 50
+      ocr_ptr_net:
+        hidden_size: 768
+        query_key_size: 768
+      params: {}
+    model_data_dir: /workspace/stan/.cache/torch/mmf/data
+    losses:
+    - type: m4c_decoding_bce_with_mask
+    model: unicl
+dataset_config:
+  clvqa:
+    data_dir: /workspace/stan/.cache/torch/mmf/data/datasets
+    depth_first: false
+    fast_read: false
+    use_images: false
+    use_features: true
+    use_gt_sg: false
+    n_img_feat: 100
+    img_feat_dim: 2048
+    features:
+      train:
+      - gqa/defaults/features/gqa.lmdb
+      - textvqa/defaults/features/open_images/detectron.lmdb,textvqa/ocr_en/features/ocr_en_frcn_features.lmdb
+      val:
+      - gqa/defaults/features/gqa.lmdb
+      - textvqa/defaults/features/open_images/detectron.lmdb,textvqa/ocr_en/features/ocr_en_frcn_features.lmdb
+      test:
+      - gqa/defaults/features/gqa.lmdb
+      - textvqa/defaults/features/open_images/detectron.lmdb,textvqa/ocr_en/features/ocr_en_frcn_features.lmdb
+    annotations:
+      train:
+      - /Users/stan/code/functional_continual_learning_dev/Gen_data/v0.6/fcl_mmf_object_train.npy
+      - /Users/stan/code/functional_continual_learning_dev/Gen_data/v0.6/fcl_mmf_attribute_train.npy
+      - /Users/stan/code/functional_continual_learning_dev/Gen_data/v0.6/fcl_mmf_relation_train.npy
+      - /Users/stan/code/functional_continual_learning_dev/Gen_data/v0.6/fcl_mmf_logical_train.npy
+      - /Users/stan/code/functional_continual_learning_dev/Gen_data/v0.6/fcl_mmf_knowledge_train.npy
+      - /Users/stan/code/functional_continual_learning_dev/Gen_data/v0.6/fcl_mmf_scenetext_train.npy
+      val:
+      - /Users/stan/code/functional_continual_learning_dev/Gen_data/v0.6/fcl_mmf_object_val.npy
+      - /Users/stan/code/functional_continual_learning_dev/Gen_data/v0.6/fcl_mmf_attribute_val.npy
+      - /Users/stan/code/functional_continual_learning_dev/Gen_data/v0.6/fcl_mmf_relation_val.npy
+      - /Users/stan/code/functional_continual_learning_dev/Gen_data/v0.6/fcl_mmf_logical_val.npy
+      - /Users/stan/code/functional_continual_learning_dev/Gen_data/v0.6/fcl_mmf_knowledge_val.npy
+      - /Users/stan/code/functional_continual_learning_dev/Gen_data/v0.6/fcl_mmf_scenetext_val.npy
+      test:
+      - /Users/stan/code/functional_continual_learning_dev/Gen_data/v0.6/fcl_mmf_object_val.npy
+      - /Users/stan/code/functional_continual_learning_dev/Gen_data/v0.6/fcl_mmf_attribute_val.npy
+      - /Users/stan/code/functional_continual_learning_dev/Gen_data/v0.6/fcl_mmf_relation_val.npy
+      - /Users/stan/code/functional_continual_learning_dev/Gen_data/v0.6/fcl_mmf_logical_val.npy
+      - /Users/stan/code/functional_continual_learning_dev/Gen_data/v0.6/fcl_mmf_knowledge_val.npy
+      - /Users/stan/code/functional_continual_learning_dev/Gen_data/v0.6/fcl_mmf_scenetext_val.npy
+    processors:
+      text_processor:
+        type: bert_tokenizer
+        params:
+          max_length: 20 # change from 14 to 20
+          vocab:
+            type: intersected
+            embedding_name: glove.6B.300d
+            vocab_file: /Users/stan/code/functional_continual_learning_dev/Gen_data/vocab/vocabulary_100k.txt
+          preprocessor:
+            type: simple_sentence
+            params: {}
+          tokenizer_config:
+            type: bert-base-uncased
+            params:
+              do_lower_case: true
+          max_seq_length: 20
+      scene_graph_processor:
+        type: scene_graph_bert_tokenizer
+        params:
+          max_length: 480
+          vocab:
+            type: intersected
+            embedding_name: glove.6B.300d
+            vocab_file: /Users/stan/code/functional_continual_learning_dev/Gen_data/vocab/vocabulary_100k.txt
+          preprocessor:
+            type: simple_sentence
+            params: {}
+          tokenizer_config:
+            type: bert-base-uncased
+            params:
+              do_lower_case: true
+          max_seq_length: 480
+      answer_processor:
+        type: m4c_answer
+        params:
+          vocab_file: /Users/stan/code/functional_continual_learning_dev/Gen_data/vocab/clvqa_answer_6k.txt
+          preprocessor:
+            type: simple_word
+            params: {}
+          num_answers: 10
+          context_preprocessor:
+            type: simple_word
+            params: {}
+          max_length: 50
+          max_copy_steps: 12
+      context_processor:
+        type: fasttext
+        params:
+          max_length: 50
+          model_file: wiki.en.bin
+      ocr_token_processor:
+        type: simple_word
+        params: {}
+      bbox_processor:
+        type: bbox
+        params:
+          max_length: 50
+      copy_processor:
+        type: copy
+        params:
+          max_length: 100
+      phoc_processor:
+        type: phoc
+        params:
+          max_length: 50
+    return_features_info: true
+    use_ocr: true
+    use_ocr_info: true
+    use_order_vectors: true
+    use_mask_img: false
+    mask_img_prob: 0.3
+    zoo_requirements:
+    - gqa.defaults
+    - textvqa.defaults
+    - textvqa.ocr_en
+datasets: clvqa
+model: unicl
+config: EXP_CONFIG/cl_functional_multitask_unicl.yaml
+run_type: train_inference
+optimizer:
+  allow_unused_parameters: false
+  enable_state_sharding: false
+  params:
+    eps: 1.0e-08
+    lr: 0.0001
+    weight_decay: 0
+  type: Adam
+scheduler: {}
+env:
+  cache_dir: /workspace/stan/.cache/torch/mmf
+  dataset_zoo: configs/zoo/datasets.yaml
+  model_zoo: configs/zoo/models.yaml
+  data_dir: /workspace/stan/.cache/torch/mmf/data
+  save_dir: /Users/stan/exp/clvqa/save/multitask/unicl_functional_incremental
+  log_dir: ''
+  report_dir: ''
+  tensorboard_logdir: ''
+  wandb_logdir: ''
+  user_dir: ''
+distributed:
+  init_method: null
+  rank: 0
+  port: -1
+  backend: nccl
+  world_size: 1
+  no_spawn: false
+checkpoint:
+  resume: false
+  resume_file: null
+  resume_best: false
+  resume_pretrained: false
+  resume_zoo: null
+  zoo_config_override: false
+  pretrained_state_mapping: {}
+  max_to_keep: -1
+  save_git_details: true
+  reset:
+    all: false
+    optimizer: false
+    counts: false
+    fp16_scaler: false
+multitasking:
+  enabled: true
+  type: size_proportional
+  params: {}
+start_rank: 0
+device_id: 0

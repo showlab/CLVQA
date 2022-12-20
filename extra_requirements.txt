@@ -1,0 +1,4 @@
+setuptools==59.5.0
+easydict==1.9
+quadprog==0.1.11
+GPUtil==1.4.0

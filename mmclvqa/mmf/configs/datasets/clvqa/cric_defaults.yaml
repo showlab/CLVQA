@@ -1,0 +1,111 @@
+dataset_config:
+  clvqa:
+    data_dir: /home/stan/.cache/torch/mmf/data/datasets
+    depth_first: false
+    fast_read: false
+    use_images: false
+    use_features: true
+    n_img_feat: 100
+    img_feat_dim: 2048
+    cl_setting:
+      use_cl: true
+      task_name: logical
+      task_order: oarlks
+      replay_method: restore
+      replay_rate: 0.2
+      max_restore_per_stage: 2500
+      restore_dir: /mnt/data/stan/qag/stand_alone
+      restore_paths: object_stand_alone.npy,attribute_stand_alone.npy,relation_stand_alone.npy
+    features:
+      train:
+      - gqa/defaults/features/gqa.lmdb
+      - textvqa/defaults/features/open_images/detectron.lmdb,textvqa/ocr_en/features/ocr_en_frcn_features.lmdb
+      val:
+      - gqa/defaults/features/gqa.lmdb
+      - textvqa/defaults/features/open_images/detectron.lmdb,textvqa/ocr_en/features/ocr_en_frcn_features.lmdb
+      test:
+      - gqa/defaults/features/gqa.lmdb
+      - textvqa/defaults/features/open_images/detectron.lmdb,textvqa/ocr_en/features/ocr_en_frcn_features.lmdb
+    annotations:
+      train:
+      - /home/stan/ai_assistant/functional_continual_learning_dev/Gen_data/v0.6/fcl_mmf_logical_train.npy
+      val:
+      - /home/stan/ai_assistant/functional_continual_learning_dev/Gen_data/v0.6/fcl_mmf_logical_val.npy
+      test:
+      - /home/stan/ai_assistant/functional_continual_learning_dev/Gen_data/v0.6/fcl_mmf_logical_val.npy
+    processors:
+      text_processor:
+        type: bert_tokenizer
+        params:
+          max_length: 20 # change from 14 to 20
+          vocab:
+            type: intersected
+            embedding_name: glove.6B.300d
+            vocab_file: /home/stan/ai_assistant/functional_continual_learning_dev/Gen_data/vocab/vocabulary_100k.txt
+          preprocessor:
+            type: simple_sentence
+            params: {}
+          tokenizer_config:
+            type: bert-base-uncased
+            params:
+              do_lower_case: true
+          max_seq_length: 20
+      scene_graph_processor:
+        type: scene_graph_bert_tokenizer
+        params:
+          max_length: 480
+          vocab:
+            type: intersected
+            embedding_name: glove.6B.300d
+            vocab_file: /home/stan/ai_assistant/functional_continual_learning_dev/Gen_data/vocab/vocabulary_100k.txt
+          preprocessor:
+            type: simple_sentence
+            params: {}
+          tokenizer_config:
+            type: bert-base-uncased
+            params:
+              do_lower_case: true
+          max_seq_length: 480
+      answer_processor:
+        type: m4c_answer
+        params:
+          vocab_file: /home/stan/ai_assistant/functional_continual_learning_dev/Gen_data/vocab/clvqa_answer_6k.txt
+          preprocessor:
+            type: simple_word
+            params: {}
+          num_answers: 10
+          context_preprocessor:
+            type: simple_word
+            params: {}
+          max_length: 50
+          max_copy_steps: 12
+      context_processor:
+        type: fasttext
+        params:
+          max_length: 50
+          model_file: wiki.en.bin
+      ocr_token_processor:
+        type: simple_word
+        params: {}
+      bbox_processor:
+        type: bbox
+        params:
+          max_length: 50
+      copy_processor:
+        type: copy
+        params:
+          max_length: 100
+      phoc_processor:
+        type: phoc
+        params:
+          max_length: 50
+    return_features_info: true
+    use_ocr: true
+    use_ocr_info: true
+    use_order_vectors: true
+    use_mask_img: false
+    mask_img_prob: 0.3
+    zoo_requirements:
+    - gqa.defaults
+    - textvqa.defaults
+    - textvqa.ocr_en
