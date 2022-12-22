@@ -23,7 +23,7 @@ pip install extra_requirements.txt
 ```
 
 ### CLOVE Dataset and Annotation
-We release the datasets and annotations in `json` format ([link](https://github.com/showlab/CLVQA/releases/download/v1.0/CLOVE-json.zip)) and `npy` format ([link](https://github.com/showlab/CLVQA/releases/download/v1.0/CLOVE-npy.zip)). To use our code for training, please download the `npy` files.
+We release the datasets and annotations in `json` format([link](https://github.com/showlab/CLVQA/releases/download/v1.0/CLOVE-json.zip)) and `npy` format([link](https://github.com/showlab/CLVQA/releases/download/v1.0/CLOVE-npy.zip)). To use our code for training, please download the `npy` files.
 
 - Example of data sample:
     ```python
