@@ -330,7 +330,7 @@ python
 ### config
 - For each `.yaml` config file under [mmclvqa/EXP_CONFIG](mmclvqa/EXP_CONFIG), change the path of `annotations` to where you put your annotation files. E.g.,
     ```yaml
-        annotations:
+    annotations:
         train:
         - /your_path_to/fcl_mmf_attribute_train.npy
         val:
@@ -342,27 +342,27 @@ python
 - For each `.yaml` config file under [mmclvqa/EXP_CONFIG](mmclvqa/EXP_CONFIG), change the path of `vocab_file` to where you put your vocab_files(use the copy under [files](files)). E.g.,
     ```yaml
     text_processor:
-    type: bert_tokenizer
-    params:
-        max_length: 20 # change from 14 to 20
-        vocab:
-        type: intersected
-        embedding_name: glove.6B.300d
-        vocab_file: /Users/stan/code/functional_continual_learning_dev/Gen_data/vocab/vocabulary_100k.txt
+        type: bert_tokenizer
+        params:
+            max_length: 20 # change from 14 to 20
+            vocab:
+            type: intersected
+            embedding_name: glove.6B.300d
+            vocab_file: /Users/stan/code/functional_continual_learning_dev/Gen_data/vocab/vocabulary_100k.txt
     ###
     scene_graph_processor:
-    type: scene_graph_bert_tokenizer
-    params:
-        max_length: 480
-        vocab:
-        type: intersected
-        embedding_name: glove.6B.300d
-        vocab_file: /Users/stan/code/functional_continual_learning_dev/Gen_data/vocab/vocabulary_100k.txt
+        type: scene_graph_bert_tokenizer
+        params:
+            max_length: 480
+            vocab:
+            type: intersected
+            embedding_name: glove.6B.300d
+            vocab_file: /Users/stan/code/functional_continual_learning_dev/Gen_data/vocab/vocabulary_100k.txt
     ###
     answer_processor:
-    type: m4c_answer
-    params:
-        vocab_file: /Users/stan/code/functional_continual_learning_dev/Gen_data/vocab/clvqa_answer_6k.txt
+        type: m4c_answer
+        params:
+            vocab_file: /Users/stan/code/functional_continual_learning_dev/Gen_data/vocab/clvqa_answer_6k.txt
     ```
 
 - Modify paths in [mmclvqa/mmf/common/CL_constant.py](mmclvqa/mmf/common/CL_constant.py):
