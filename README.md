@@ -348,7 +348,7 @@ python
             vocab:
             type: intersected
             embedding_name: glove.6B.300d
-            vocab_file: /Users/stan/code/functional_continual_learning_dev/Gen_data/vocab/vocabulary_100k.txt
+            vocab_file: /your_path_to/vocabulary_100k.txt
     ###
     scene_graph_processor:
         type: scene_graph_bert_tokenizer
@@ -357,12 +357,12 @@ python
             vocab:
             type: intersected
             embedding_name: glove.6B.300d
-            vocab_file: /Users/stan/code/functional_continual_learning_dev/Gen_data/vocab/vocabulary_100k.txt
+            vocab_file: /your_path_to/vocabulary_100k.txt
     ###
     answer_processor:
         type: m4c_answer
         params:
-            vocab_file: /Users/stan/code/functional_continual_learning_dev/Gen_data/vocab/clvqa_answer_6k.txt
+            vocab_file: /your_path_to/clvqa_answer_6k.txt
     ```
 
 - Modify paths in [mmclvqa/mmf/common/CL_constant.py](mmclvqa/mmf/common/CL_constant.py):
@@ -374,8 +374,8 @@ python
 
     # These files are under files/
     GENERATED_SG_PTH = dict(
-        functional = "/... path to/generated_sg_all_stages_v6.json", # modify path here
-        scene = "/... path to/stage_sg_scene_setting_50u-50c.json",  # modify path here
+        functional = "/your_path_to/generated_sg_all_stages_v6.json", # modify path here
+        scene = "/your_path_to/stage_sg_scene_setting_50u-50c.json",  # modify path here
     )
     ```
 - For each `.yaml` config file under [mmclvqa/EXP_CONFIG](mmclvqa/EXP_CONFIG), you may change the `cache_dir` where the program would save the *automatically* downloaded features.
