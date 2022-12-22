@@ -1,5 +1,5 @@
-# Copyright (c) Facebook, Inc. and its affiliates.
 # This module is modified based on m4c.py
+# impl. by StanLei52
 
 import functools
 import logging
@@ -76,9 +76,8 @@ class UniCL(BaseModel):
             
         if self.config.text_bert_init_from_bert_base:
             self.text_bert = TextBert.from_pretrained(
-                # "bert-base-uncased", config=self.text_bert_config
-                "/Users/stan/exp/pretrained_model/bert-base-uncased", config=self.text_bert_config
-
+                "bert-base-uncased", config=self.text_bert_config
+                # "/Users/stan/exp/pretrained_model/bert-base-uncased", config=self.text_bert_config
             )
             # Use a smaller learning rate on text bert when initializing
             # from BERT_BASE

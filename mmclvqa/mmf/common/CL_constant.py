@@ -163,6 +163,7 @@ FCL_DATA_ATTR = dict(
  
 )
 
+# files under files/
 GENERATED_SG_PTH = dict(
     functional = "/Users/stan/code/functional_continual_learning_dev/SG_processing/generated_sg_all_stages_v6.json", # modify path here
     scene = "/Users/stan/code/functional_continual_learning_dev/SG_processing/stage_sg_scene_setting_50u-50c.json",  # modify path here
