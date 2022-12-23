@@ -401,7 +401,7 @@ If you find our work helps, please cite our paper.
 
 ---
 ## Contact
-For any questions, welcome to create an issue or email Stan ([leiwx52@gmail.com](leiwx52@gmail.com)).
+For any questions, welcome to create an issue or email Stan ([leiwx52@gmail.com](mailto:leiwx52@gmail.com)).
 
 ---
 ## Acknowledgement
