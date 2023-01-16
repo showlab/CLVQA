@@ -19,7 +19,7 @@ cd mmclvqa
 pip install --editable .
 
 cd ..
-pip install extra_requirements.txt
+pip install -r extra_requirements.txt
 ```
 
 ### CLOVE Dataset and Annotation
