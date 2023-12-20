@@ -1,7 +1,7 @@
 # CLVQA
 # Symbolic Replay: Scene Graph as Prompt for Continual Learning on VQA Task (AAAI2023)
 
-### [[arXiv](https://arxiv.org/abs/2208.12037) | Data & annotation([json](https://github.com/showlab/CLVQA/releases/download/v1.0/CLOVE-json.zip)/[npy](https://github.com/showlab/CLVQA/releases/download/v1.0/CLOVE-npy.zip))]
+### [[`arXiv`](https://arxiv.org/abs/2208.12037) | Data & annotation([`json`](https://github.com/showlab/CLVQA/releases/download/v1.0/CLOVE-json.zip)/[`npy`](https://github.com/showlab/CLVQA/releases/download/v1.0/CLOVE-npy.zip))]
 
 <img  src="./figures/gh_teaser.png"  alt="CLVQA"  style="zoom:67%;"  />
 
