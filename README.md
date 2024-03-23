@@ -391,11 +391,17 @@ python
 ## Cite Our Work
 If you find our work helps, please cite our paper.
 ```bibtex
-@article{lei2022symbolic,
-  title={Symbolic replay: Scene graph as prompt for continual learning on vqa task},
-  author={Lei, Stan Weixian and Gao, Difei and Wu, Jay Zhangjie and Wang, Yuxuan and Liu, Wei and Zhang, Mengmi and Shou, Mike Zheng},
-  journal={arXiv preprint arXiv:2208.12037},
-  year={2022}
+@article{Lei_symbolic_2023, 
+title={Symbolic Replay: Scene Graph as Prompt for Continual Learning on VQA Task}, 
+volume={37}, 
+url={https://ojs.aaai.org/index.php/AAAI/article/view/25208}, 
+DOI={10.1609/aaai.v37i1.25208}, 
+number={1}, 
+journal={Proceedings of the AAAI Conference on Artificial Intelligence}, 
+author={Lei, Stan Weixian and Gao, Difei and Wu, Jay Zhangjie and Wang, Yuxuan and Liu, Wei and Zhang, Mengmi and Shou, Mike Zheng}, 
+year={2023}, 
+month={Jun.}, 
+pages={1250-1259} 
 }
 ```
 
